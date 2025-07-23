@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Individual Tasks</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+
+    .task-card {
+      background: #fff;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+
+    #taskModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    #taskModalContent {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    #taskModalContent span {
+      position: absolute;
+      top: 10px; right: 15px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      cursor: pointer;
+    }
+    #modalDescription {
+        font-size: 16px;
+        line-height: 1.6;
+        font-family: 'Segoe UI', sans-serif;
+        white-space: pre-wrap; /* Ensures long lines wrap inside modal */
+    }
+
+  </style>
+</head>
+<body>
+  <h1>👤 Individual Tasks</h1>
+  <div id="individualTasksContainer"></div>
+
+  <!-- Modal -->
+  <div id="taskModal">
+    <div id="taskModalContent">
+      <span onclick="closeTaskModal()">&times;</span>
+    <div id="modalBodyContent"><pre id="modalDescription"></pre></div>
+    </div>
+  </div>
+
+  <script>
+    const individualTasks = [
+  {
+    id: "ind1",
+    title: "Create Personal Daily Planner",
+    skills: ["HTML", "CSS", "JavaScript"],
+    description: `Objective:\nCreate a responsive daily planner to help users manage their daily routines.\n\nFeatures & Requirements:\n1. Add/Edit/Delete tasks with time slots.\n2. Save tasks to localStorage so they persist.\n3. Responsive design for mobile and desktop.\n4. Optional: Add priority tagging using color badges.\n\nTech Stack:\n- HTML/CSS for layout.\n- JavaScript for task logic.\n- Optional: Dark mode toggle.`
+  },
+  {
+    id: "ind2",
+    title: "Set Task Reminders",
+    skills: ["JavaScript", "Notifications"],
+    description: `Objective:\nBuild a task reminder system using browser notifications.\n\nFeatures & Requirements:\n1. User sets task with due time.\n2. Use JavaScript's setTimeout or setInterval to trigger alerts.\n3. Integrate with Notification API (with permission).\n4. Display popup notifications with task details.\n\nBonus:\n- Use sound alerts.\n- Allow snoozing tasks.`
+  },
+  {
+  id: "ind3",
+  title: "Responsive Portfolio Website",
+  skills: ["HTML", "CSS", "JavaScript"],
+  description: `Objective:\nCreate a personal portfolio website that showcases your projects, skills, and contact details.\n\nFeatures & Requirements:\n1. Home, About, Projects, and Contact sections.\n2. Responsive design using media queries.\n3. Project cards with titles, descriptions, and links.\n4. Smooth scrolling navigation.\n\nOptional:\n- Add a dark mode toggle.\n- Use a contact form with form validation.\n\nTech Stack:\nHTML5, CSS3 (Flexbox/Grid), Vanilla JavaScript.`
+},
+{
+  id: "ind4",
+  title: "Weather App Using API",
+  skills: ["JavaScript", "API Integration", "HTML", "CSS"],
+  description: `Objective:\nBuild a weather forecast application using an open weather API.\n\nFeatures & Requirements:\n1. Input city name to fetch weather.\n2. Display temperature, condition, humidity, and wind.\n3. Show icons based on weather.\n4. Handle invalid inputs gracefully.\n\nTech Stack:\n- HTML/CSS for layout.\n- JavaScript for API call & DOM manipulation.\n- Use OpenWeatherMap API.`
+},
+{
+  id: "ind5",
+  title: "To-Do List with Local Storage",
+  skills: ["JavaScript", "HTML", "CSS"],
+  description: `Objective:\nDevelop a dynamic To-Do List that saves tasks even after browser refresh.\n\nFeatures & Requirements:\n1. Add, delete, and mark tasks as completed.\n2. Save tasks to localStorage.\n3. Filter tasks: All, Active, Completed.\n\nBonus:\n- Drag-and-drop task reordering.\n- Add due date or priority tag.\n\nTech Stack:\nVanilla JS, HTML, CSS (Flexbox for layout).`
+},
+{
+  id: "ind6",
+  title: "Typing Speed Tester",
+  skills: ["JavaScript", "DOM Manipulation"],
+  description: `Objective:\nCreate a web app that measures a user's typing speed.\n\nFeatures & Requirements:\n1. Random paragraph appears for typing.\n2. Timer starts on first keypress.\n3. Show WPM (words per minute), accuracy, and mistakes.\n4. Option to reset and try again.\n\nTech Stack:\nHTML/CSS for UI, JavaScript for logic.`
+}
+
+];
+
+
+
+    const container = document.getElementById("individualTasksContainer");
+
+    individualTasks.forEach(task => {
+      const card = document.createElement("div");
+      card.className = "task-card";
+      card.innerHTML = `
+        <h3>${task.title}</h3>
+        <p><strong>Skills:</strong> ${task.skills.join(", ")}</p>
+        <p style="font-size: 12px; color: gray;">Click to view project details</p>
+      `;
+      card.addEventListener('click', () => showTaskModal(task));
+      container.appendChild(card);
+    });
+
+    function showTaskModal(task) {
+  document.getElementById("modalBodyContent").innerHTML = `
+    <h2 style="margin-bottom: 10px;">${task.title}</h2>
+    <div style="font-size: 16px; line-height: 1.6; white-space: pre-line;">${task.description}</div>
+    <label style="display: block; margin-top: 20px; font-weight: bold;">
+      Upload your task link:
+      <input type="text" placeholder="Paste your live task link here..." style="width: 100%; margin-top: 8px; padding: 8px; border: 1px solid #ccc; border-radius: 6px;" />
+    </label>
+  `;
+  document.getElementById("taskModal").style.display = "flex";
+}
+
+
+
+    function closeTaskModal() {
+      document.getElementById("taskModal").style.display = "none";
+    }
+  </script>
+</body>
+</html>
